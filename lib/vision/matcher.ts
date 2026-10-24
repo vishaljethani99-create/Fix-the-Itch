@@ -8,7 +8,7 @@ export class Matcher {
   examples: SignExample[] = [];
   // threshold: max average distance. ambiguity < 1 additionally rejects a sign whose
   // best distance is not clearly better than the runner-up label (1 = off).
-  constructor(public threshold = 0.18, public ambiguity = 1) {}
+  constructor(public threshold = 0.28, public ambiguity = 1) {}
 
   setExamples(e: SignExample[]) { this.examples = e.filter((x) => x.frames.length === CLIP_FRAMES && x.frames[0].length === DIM); }
 
