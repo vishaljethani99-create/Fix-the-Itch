@@ -1,6 +1,6 @@
-# Fix the Itch
+# GOLAn
 
-Fix the Itch is a Node.js and TypeScript application with communication helpers for service-counter conversations. It can turn recognized sign labels into a short sentence, simplify staff speech into a caption, and provide browser speech recognition and text-to-speech helpers.
+GOLan is a Node.js and TypeScript application with communication helpers for service-counter conversations. It can turn recognized sign labels into a short sentence, simplify staff speech into a caption, and provide browser speech recognition and text-to-speech helpers.
 
 The repository currently provides a small Next.js home page and the API routes. A full user interface and sign-recognition model are not included yet; callers provide the recognized sign labels.
 
