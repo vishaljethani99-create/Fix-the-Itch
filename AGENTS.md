@@ -1,9 +1,15 @@
 <!-- BEGIN:nextjs-agent-rules -->
 
-## This is NOT the Next.js you know
+## Next.js project guidance
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
-
-This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+This project uses Next.js. Before changing Next.js APIs or conventions, check the version-specific documentation installed at `node_modules/next/dist/docs/` and follow its current guidance.
 
 <!-- END:nextjs-agent-rules -->
+
+## Repository guidance
+
+- Keep API keys and other secrets in local environment files; never commit them.
+- Preserve existing behavior unless a requested change requires otherwise.
+- Run `npm run typecheck` and `npm run build` after changing application code.
+- The API accepts scenarios `hospital`, `bank`, and `office`, and languages `en`, `hi`, and `mr`.
+- Sign recognition and a complete user interface are not currently included; callers supply sign labels to the API.

@@ -1,10 +1,10 @@
-# Fix the Itch
+# GoLan
 
-Fix the Itch is a communication project for service-counter conversations, such as at a hospital, bank, or office. It helps turn sign labels into a sentence that can be spoken aloud, and simplify staff speech into a caption that is easier to read.
+GoLan is a communication project for service-counter conversations, such as at a hospital, bank, or office. It helps turn sign labels into a sentence that can be spoken aloud, and simplify staff speech into a caption that is easier to read.
 
 The repository currently includes a starter web page and two API routes. An API route is a URL that another part of an app can send information to and receive a result from. A complete user interface and sign-recognition model are not included yet, so the sign labels must currently be supplied by the caller.
 
-## How to use Fix the Itch
+## How to use Fix the GoLan
 
 1. Start the development server using the instructions below.
 2. Choose a conversation scenario (`hospital`, `bank`, or `office`) and a language (`en`, `hi`, or `mr`).
