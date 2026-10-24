@@ -1,4 +1,4 @@
-# SignBridge site
+# GoLan site
 
 signbridge-site/
   html/signbridge.html      standalone page (open in a browser, no build)
