@@ -1,8 +1,9 @@
-import type { RecognizedSign } from '../types';
 import type { Landmark, SignPack, SignRecognizer, SignExample } from './types';
 import { CLIP_FRAMES, CLIP_MS, normalizeFrame, resample } from './normalize';
 import { Matcher, type Match } from './matcher';
 import { buildPreviewUrl } from './preview';
+
+type RecognizedSign = Parameters<Parameters<SignRecognizer['onSign']>[0]>[0];
 
 // Self-hosted first (works with bad venue Wi-Fi), CDN only as fallback.
 const LOCAL_WASM = '/mediapipe/wasm';
