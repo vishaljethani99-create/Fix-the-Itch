@@ -1,8 +1,8 @@
-# GOLan
+# GoLan
 
 **One phone. Two languages. Zero silence.**
 
-GOLan is a privacy-first communication bridge for high-stakes public service counters, including hospitals and banks. It is designed to help Deaf and hard-of-hearing people communicate using a curated set of Indian Sign Language (ISL) glosses, while helping counter staff respond in a local spoken language.
+GoLan is a privacy-first communication bridge for high-stakes public service counters, including hospitals and banks. It is designed to help Deaf and hard-of-hearing people communicate using a curated set of Indian Sign Language (ISL) glosses, while helping counter staff respond in a local spoken language.
 
 The project was built for **Hacktoberfest Hack Day Pune (NST ADYPU x MLH), Main Track**.
 
@@ -12,7 +12,7 @@ The project was built for **Hacktoberfest Hack Day Pune (NST ADYPU x MLH), Main 
 
 India has a significant shortage of qualified ISL interpreters relative to the Deaf population. The project brief estimates fewer than 1,500 qualified interpreters serving 5 to 18 million Deaf citizens. In settings such as emergency triage and banking, that gap can make routine or urgent interactions difficult.
 
-GOLan explores a lightweight counter-side tool: recognize a limited vocabulary of signs locally, turn recognized glosses into a concise sentence, and provide staff with quick replies. It is an assistive prototype, not a replacement for a qualified interpreter.
+GoLan explores a lightweight counter-side tool: recognize a limited vocabulary of signs locally, turn recognized glosses into a concise sentence, and provide staff with quick replies. It is an assistive prototype, not a replacement for a qualified interpreter.
 
 ## How it works
 
@@ -95,7 +95,7 @@ The design calls for a 1.5-second pause before composing a phrase and a 6-second
 
 ## Limitations
 
-- GOLan recognizes a curated, high-priority vocabulary, not full continuous ISL or ISL grammar.
+- GoLan recognizes a curated, high-priority vocabulary, not full continuous ISL or ISL grammar.
 - The language model is intended to compose sentences from text glosses; it does not interpret video.
 - Browser speech recognition is not guaranteed to run locally and may route audio through a cloud provider.
 - Model-generated wording must not invent medical or financial details. Staff and users should verify important information.
