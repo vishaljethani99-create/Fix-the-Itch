@@ -1,4 +1,4 @@
-# Sanket
+# GOLan
 
 **One phone. Two languages. Zero silence.**
 
