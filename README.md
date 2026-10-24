@@ -1,8 +1,32 @@
 # Fix the Itch
 
-Fix the Itch is a Node.js and TypeScript application with communication helpers for service-counter conversations. It can turn recognized sign labels into a short sentence, simplify staff speech into a caption, and provide browser speech recognition and text-to-speech helpers.
+Fix the Itch is a communication project for service-counter conversations, such as at a hospital, bank, or office. It helps turn sign labels into a sentence that can be spoken aloud, and simplify staff speech into a caption that is easier to read.
 
-The repository currently provides a small Next.js home page and the API routes. A full user interface and sign-recognition model are not included yet; callers provide the recognized sign labels.
+The repository currently includes a starter web page and two API routes. An API route is a URL that another part of an app can send information to and receive a result from. A complete user interface and sign-recognition model are not included yet, so the sign labels must currently be supplied by the caller.
+
+## How to use Fix the Itch
+
+1. Start the development server using the instructions below.
+2. Choose a conversation scenario (`hospital`, `bank`, or `office`) and a language (`en`, `hi`, or `mr`).
+3. Send recognized sign labels to `/api/compose` to receive a sentence and a short summary.
+4. Send staff speech text to `/api/simplify` to receive a simpler caption, important words, and suggested replies.
+5. Use the browser speech helpers in `lib/speech.ts` to read text aloud or, in supported browsers, convert speech to text.
+
+At this stage, the project provides the communication building blocks and API examples; it does not yet provide screens or automatically recognize sign language from a camera.
+
+## Terms used in this guide
+
+- **Node.js**: The program that runs the web server on your computer.
+- **npm**: The tool that installs the packages the project needs and runs its commands.
+- **Next.js**: The web framework used to serve the starter page and API routes.
+- **TypeScript**: JavaScript with extra type checks that help catch mistakes while developing.
+- **API**: A way for one part of the app to send data to another part and get a response.
+- **JSON**: A text format used to send structured data, such as the examples below.
+- **Scenario**: The kind of service counter where the conversation is taking place.
+- **Language code**: A short label for the response language: `en` is English, `hi` is Hindi, and `mr` is Marathi.
+- **Mock mode**: A demonstration mode that returns simple sample responses without contacting Google's AI service.
+- **Fallback**: A basic response used when the AI service is not configured or cannot return a usable answer.
+- **Google GenAI**: Google's generative AI service, used for responses when mock mode is turned off and an API key is configured.
 
 ## Requirements
 
@@ -37,7 +61,7 @@ npm run dev
 
 Open <http://localhost:3000>.
 
-Mock mode is enabled by default (`MOCK_GEMMA=true`) and does not need an API key. To call Google GenAI, set `MOCK_GEMMA=false` and put your key in `.env.local`:
+Mock mode is enabled by default (`MOCK_GEMMA=true`), so you can try the API without an AI account or API key. Its replies are simple examples, not AI-generated translations. To use Google's AI service instead, set `MOCK_GEMMA=false` and put your key in `.env.local`:
 
 ```dotenv
 GEMINI_API_KEY=your_key_here
@@ -58,11 +82,11 @@ Never commit `.env.local` or share its key. If a key was exposed or committed, r
 
 ## API
 
-Both routes accept JSON and return JSON. Invalid JSON or invalid request data returns HTTP `400`.
+Both routes accept a JSON request and return a JSON response. In the examples, `POST` means the caller is sending data to the route. An HTTP `400` response means the request was not valid.
 
 ### `POST /api/compose`
 
-Turns sign labels into a short sentence and summary.
+Send sign labels to this route to get a short sentence and summary. A sign label is a word describing a recognized sign, such as `"help"`.
 
 Request:
 
@@ -75,7 +99,7 @@ Request:
 }
 ```
 
-`scenario` must be `hospital`, `bank`, or `office`. `lang` must be `en`, `hi`, or `mr`. Each history item has a `who` value of `signer` or `staff` and a `text` string.
+In the request, `scenario` must be `hospital`, `bank`, or `office`, and `lang` must be `en`, `hi`, or `mr`. `history` is a list of previous conversation messages; send an empty list (`[]`) when there are no previous messages. Each message has `who` (`signer` or `staff`) and `text`. The examples show the expected data shape; they do not imply that camera-based sign recognition is already included.
 
 Response:
 
@@ -93,7 +117,7 @@ Response:
 
 ### `POST /api/simplify`
 
-Simplifies a staff member's speech for a signer.
+Send the staff member's words to this route to get a simpler caption, key terms, and suggested replies for the signer.
 
 Request:
 
