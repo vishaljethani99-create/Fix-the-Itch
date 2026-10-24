@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "node16",
+    "moduleResolution": "node16",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "outDir": ".test-build",
+    "lib": [
+      "dom",
+      "es2022"
+    ],
+    "types": [
+      "node"
+    ],
+    "paths": {
+      "@google/genai": [
+        "./tests/stubs/genai.ts"
+      ]
+    },
+    "rootDir": "."
+  },
+  "include": [
+    "tests/**/*.ts",
+    "lib/**/*.ts",
+    "app/api/**/*.ts"
+  ]
+}
