@@ -7,12 +7,30 @@ const LANG_NAME: Record<Lang, string> = {
   mr: 'Marathi (Devanagari script)',
 };
 
-function cleanJson(raw: string): any {
+function cleanJson(raw: string): Record<string, unknown> {
   const stripped = raw.replace(/```json|```/gi, '').trim();
   const start = stripped.indexOf('{');
   const end = stripped.lastIndexOf('}');
   if (start === -1 || end === -1) throw new Error('No JSON object found');
-  return JSON.parse(stripped.slice(start, end + 1));
+  const parsed: unknown = JSON.parse(stripped.slice(start, end + 1));
+  if (typeof parsed !== 'object' || parsed === null || Array.isArray(parsed)) {
+    throw new Error('Expected a JSON object');
+  }
+  return parsed as Record<string, unknown>;
+}
+
+function isSummary(value: unknown): value is { needs: string; symptoms: string; notes: string } {
+  if (typeof value !== 'object' || value === null || Array.isArray(value)) return false;
+  const summary = value as Record<string, unknown>;
+  return (
+    typeof summary.needs === 'string' &&
+    typeof summary.symptoms === 'string' &&
+    typeof summary.notes === 'string'
+  );
+}
+
+function isString(value: unknown): value is string {
+  return typeof value === 'string';
 }
 
 export async function runCompose(req: ComposeRequest): Promise<ComposeResponse> {
@@ -50,6 +68,9 @@ Do not invent medical or financial details not present in the signs.`;
       new Promise<never>((_, rej) => setTimeout(() => rej(new Error('Timeout')), 5500)),
     ]);
     const parsed = cleanJson(res.text || '');
+    if (typeof parsed.sentence !== 'string' || !isSummary(parsed.summary)) {
+      throw new Error('Gemma returned an invalid compose response');
+    }
     return {
       sentence: parsed.sentence || rawJoined,
       summary: parsed.summary,
@@ -92,6 +113,15 @@ Reply ONLY with valid JSON:
       new Promise<never>((_, rej) => setTimeout(() => rej(new Error('Timeout')), 5500)),
     ]);
     const parsed = cleanJson(res.text || '');
+    if (
+      typeof parsed.caption !== 'string' ||
+      !Array.isArray(parsed.keyTerms) ||
+      !parsed.keyTerms.every(isString) ||
+      !Array.isArray(parsed.quickReplies) ||
+      !parsed.quickReplies.every(isString)
+    ) {
+      throw new Error('Gemma returned an invalid simplify response');
+    }
     return {
       caption: parsed.caption || req.speech,
       keyTerms: Array.isArray(parsed.keyTerms) ? parsed.keyTerms.slice(0, 4) : [],
