@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import "./signbridge.css";
+import "./golan.css";
 import Studio from "./Studio";
 
 const PHRASES = [
